@@ -54,6 +54,14 @@ jobs:
       - name: Install npm dependencies
         run: npm ci
 
+      - name: Download ONNX model
+        run: |
+          mkdir -p src-tauri/resources
+          curl -L -o src-tauri/resources/model_quantized.onnx \
+            "https://huggingface.co/Xenova/all-MiniLM-L6-v2/resolve/main/onnx/model_quantized.onnx"
+          curl -L -o src-tauri/resources/tokenizer.json \
+            "https://huggingface.co/Xenova/all-MiniLM-L6-v2/resolve/main/tokenizer.json"
+
       - name: TypeScript type check
         run: npx tsc --noEmit
 
@@ -110,9 +118,24 @@ jobs:
       - name: Install npm dependencies
         run: npm ci
 
+      - name: Download ONNX model
+        run: |
+          mkdir -p src-tauri/resources
+          curl -L -o src-tauri/resources/model_quantized.onnx \
+            "https://huggingface.co/Xenova/all-MiniLM-L6-v2/resolve/main/onnx/model_quantized.onnx"
+          curl -L -o src-tauri/resources/tokenizer.json \
+            "https://huggingface.co/Xenova/all-MiniLM-L6-v2/resolve/main/tokenizer.json"
+
       - name: Build Tauri app
         uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           args: --target ${{ matrix.target }}
+
+      - name: Upload Linux AppImage
+        if: matrix.platform == 'ubuntu-22.04'
+        uses: actions/upload-artifact@v4
+        with:
+          name: sunder-linux-appimage
+          path: src-tauri/target/x86_64-unknown-linux-gnu/release/bundle/appimage/*.AppImage
