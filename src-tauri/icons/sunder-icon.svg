@@ -1,0 +1,112 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Background gradient: deep void to rich violet -->
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0d0e18"/>
+      <stop offset="50%" stop-color="#161730"/>
+      <stop offset="100%" stop-color="#1e1540"/>
+    </linearGradient>
+
+    <!-- Amber glow -->
+    <radialGradient id="amber-glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#e8a849" stop-opacity="0.6"/>
+      <stop offset="70%" stop-color="#dba052" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#dba052" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Violet glow -->
+    <radialGradient id="violet-glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#8b7cf6" stop-opacity="0.5"/>
+      <stop offset="70%" stop-color="#8b7cf6" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#8b7cf6" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Connection point glow -->
+    <radialGradient id="connection-glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#e8a849" stop-opacity="0.9"/>
+      <stop offset="40%" stop-color="#dba052" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#dba052" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Soft glow filter -->
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="12" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <filter id="soft-glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="30" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background with rounded corners (macOS icon shape) -->
+  <rect width="1024" height="1024" rx="228" fill="url(#bg)"/>
+
+  <!-- Subtle noise-like texture dots -->
+  <g opacity="0.04">
+    <circle cx="200" cy="300" r="2" fill="#fff"/>
+    <circle cx="400" cy="180" r="1.5" fill="#fff"/>
+    <circle cx="620" cy="250" r="1" fill="#fff"/>
+    <circle cx="780" cy="350" r="1.5" fill="#fff"/>
+    <circle cx="300" cy="700" r="1" fill="#fff"/>
+    <circle cx="700" cy="680" r="2" fill="#fff"/>
+    <circle cx="850" cy="550" r="1" fill="#fff"/>
+    <circle cx="180" cy="520" r="1.5" fill="#fff"/>
+    <circle cx="550" cy="820" r="1" fill="#fff"/>
+    <circle cx="480" cy="150" r="1" fill="#fff"/>
+  </g>
+
+  <!-- Ambient glow behind circles -->
+  <ellipse cx="380" cy="420" rx="220" ry="220" fill="url(#violet-glow)" opacity="0.4"/>
+  <ellipse cx="644" cy="420" rx="220" ry="220" fill="url(#amber-glow)" opacity="0.5"/>
+
+  <!-- Left circle — violet, representing a note/idea -->
+  <circle cx="380" cy="420" r="165" fill="none" stroke="#8b7cf6" stroke-width="3.5" opacity="0.6"/>
+  <circle cx="380" cy="420" r="165" fill="none" stroke="#8b7cf6" stroke-width="1.5" opacity="0.25" stroke-dasharray="8 12"/>
+
+  <!-- Right circle — amber, representing a connected note -->
+  <circle cx="644" cy="420" r="165" fill="none" stroke="#dba052" stroke-width="3.5" opacity="0.6"/>
+  <circle cx="644" cy="420" r="165" fill="none" stroke="#dba052" stroke-width="1.5" opacity="0.25" stroke-dasharray="8 12"/>
+
+  <!-- Intersection highlight — the latent connection -->
+  <!-- The circles overlap at roughly x=512 -->
+  <ellipse cx="512" cy="420" rx="40" ry="110" fill="none" stroke="#e4e5ed" stroke-width="1" opacity="0.08"/>
+
+  <!-- Central connection point — the "sunder" moment of discovery -->
+  <circle cx="512" cy="420" r="60" fill="url(#connection-glow)" opacity="0.5"/>
+  <circle cx="512" cy="420" r="18" fill="#e8a849" filter="url(#glow)" opacity="0.9"/>
+  <circle cx="512" cy="420" r="8" fill="#fff" opacity="0.85"/>
+
+  <!-- Thin connection lines radiating from center -->
+  <line x1="380" y1="420" x2="494" y2="420" stroke="#8b7cf6" stroke-width="1.5" opacity="0.35"/>
+  <line x1="530" y1="420" x2="644" y2="420" stroke="#dba052" stroke-width="1.5" opacity="0.35"/>
+
+  <!-- Small satellite nodes — representing the graph -->
+  <circle cx="240" cy="310" r="6" fill="#8b7cf6" opacity="0.4"/>
+  <circle cx="280" cy="570" r="5" fill="#8b7cf6" opacity="0.3"/>
+  <circle cx="760" cy="290" r="5" fill="#dba052" opacity="0.35"/>
+  <circle cx="740" cy="560" r="6" fill="#dba052" opacity="0.4"/>
+  <circle cx="512" cy="260" r="4" fill="#5ec4b6" opacity="0.35"/>
+  <circle cx="512" cy="580" r="4" fill="#5ec4b6" opacity="0.35"/>
+
+  <!-- Faint lines from satellites to main circles -->
+  <line x1="240" y1="310" x2="330" y2="370" stroke="#8b7cf6" stroke-width="0.8" opacity="0.15"/>
+  <line x1="280" y1="570" x2="340" y2="500" stroke="#8b7cf6" stroke-width="0.8" opacity="0.15"/>
+  <line x1="760" y1="290" x2="700" y2="350" stroke="#dba052" stroke-width="0.8" opacity="0.15"/>
+  <line x1="740" y1="560" x2="685" y2="500" stroke="#dba052" stroke-width="0.8" opacity="0.15"/>
+  <line x1="512" y1="260" x2="512" y2="362" stroke="#5ec4b6" stroke-width="0.8" opacity="0.15"/>
+  <line x1="512" y1="580" x2="512" y2="478" stroke="#5ec4b6" stroke-width="0.8" opacity="0.15"/>
+
+  <!-- "S" letterform below — subtle, typographic anchor -->
+  <text x="512" y="760" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-weight="600" font-size="100" fill="#e4e5ed" letter-spacing="16" opacity="0.7">SUNDER</text>
+
+  <!-- Thin rule above text -->
+  <line x1="340" y1="680" x2="684" y2="680" stroke="#e4e5ed" stroke-width="0.8" opacity="0.12"/>
+</svg>

@@ -1,0 +1,326 @@
+@import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,600;12..96,700&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap");
+@import "tailwindcss";
+
+/* ─── Design System: Deep Cartography ─── */
+
+@theme {
+  --font-display: "Bricolage Grotesque", system-ui, sans-serif;
+  --font-body: "Outfit", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  /* Void — the deepest background layer */
+  --color-void: #07080e;
+  --color-void-warm: #0a0b12;
+
+  /* Surfaces — layered depth */
+  --color-surface-0: #0d0e16;
+  --color-surface-1: #12131d;
+  --color-surface-2: #171924;
+  --color-surface-3: #1d1f2c;
+  --color-surface-4: #232636;
+
+  /* Glass — NOT white-tinted. Cool indigo glass. */
+  --color-glass: oklch(0.25 0.03 270 / 0.4);
+  --color-glass-edge: oklch(0.45 0.04 270 / 0.15);
+  --color-glass-hover: oklch(0.3 0.03 270 / 0.45);
+
+  /* Ink — text hierarchy */
+  --color-ink: #e4e5ed;
+  --color-ink-secondary: #9498b0;
+  --color-ink-tertiary: #5c6080;
+  --color-ink-ghost: #3d4162;
+
+  /* Amber — discovery, warmth, latent connections */
+  --color-amber: #dba052;
+  --color-amber-glow: #e8a849;
+  --color-amber-soft: oklch(0.72 0.12 70 / 0.15);
+  --color-amber-dim: oklch(0.72 0.12 70 / 0.06);
+
+  /* Violet — interactive, focus, selection */
+  --color-violet: #8b7cf6;
+  --color-violet-soft: oklch(0.62 0.18 290 / 0.12);
+  --color-violet-dim: oklch(0.62 0.18 290 / 0.06);
+
+  /* Teal — success, semantic matches */
+  --color-teal: #5ec4b6;
+  --color-teal-soft: oklch(0.72 0.1 180 / 0.1);
+
+  /* Rose — danger, deletion */
+  --color-rose: #e06c75;
+
+  /* Border system */
+  --color-border: oklch(0.35 0.03 270 / 0.2);
+  --color-border-subtle: oklch(0.3 0.02 270 / 0.12);
+  --color-border-active: oklch(0.5 0.08 270 / 0.3);
+}
+
+/* ─── Light Theme Overrides ─── */
+
+[data-theme="light"] {
+  --color-void: #f5f5f8;
+  --color-void-warm: #f0f0f5;
+
+  --color-surface-0: #eaeaef;
+  --color-surface-1: #e2e2ea;
+  --color-surface-2: #dcdce5;
+  --color-surface-3: #d2d2dd;
+  --color-surface-4: #c8c8d5;
+
+  --color-glass: oklch(0.92 0.01 270 / 0.6);
+  --color-glass-edge: oklch(0.7 0.02 270 / 0.15);
+  --color-glass-hover: oklch(0.88 0.01 270 / 0.65);
+
+  --color-ink: #1a1b26;
+  --color-ink-secondary: #4a4d6a;
+  --color-ink-tertiary: #7a7d98;
+  --color-ink-ghost: #a0a3b8;
+
+  --color-amber: #b07e30;
+  --color-amber-glow: #c48d38;
+  --color-amber-soft: oklch(0.65 0.12 70 / 0.12);
+  --color-amber-dim: oklch(0.65 0.12 70 / 0.05);
+
+  --color-violet: #6b5ce7;
+  --color-violet-soft: oklch(0.55 0.18 290 / 0.1);
+  --color-violet-dim: oklch(0.55 0.18 290 / 0.05);
+
+  --color-teal: #3a9e90;
+  --color-teal-soft: oklch(0.6 0.1 180 / 0.1);
+
+  --color-rose: #c94f58;
+
+  --color-border: oklch(0.6 0.02 270 / 0.18);
+  --color-border-subtle: oklch(0.65 0.015 270 / 0.12);
+  --color-border-active: oklch(0.5 0.06 270 / 0.25);
+}
+
+/* ─── Base ─── */
+
+:root {
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--color-ink);
+  background: var(--color-void);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: "cv02", "cv03", "cv04";
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
+}
+
+/* ─── Atmosphere: Subtle background grain + gradient ─── */
+
+#root::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 30%, oklch(0.2 0.04 270 / 0.25), transparent),
+    radial-gradient(ellipse 60% 50% at 80% 70%, oklch(0.18 0.03 40 / 0.12), transparent),
+    radial-gradient(ellipse 40% 40% at 50% 50%, oklch(0.15 0.02 200 / 0.08), transparent);
+  transition: opacity 0.3s ease;
+}
+
+[data-theme="light"] #root::before {
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 30%, oklch(0.88 0.03 270 / 0.2), transparent),
+    radial-gradient(ellipse 60% 50% at 80% 70%, oklch(0.9 0.02 40 / 0.1), transparent),
+    radial-gradient(ellipse 40% 40% at 50% 50%, oklch(0.92 0.015 200 / 0.08), transparent);
+}
+
+/* Noise texture overlay for depth */
+#root::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+}
+
+[data-theme="light"] #root::after {
+  opacity: 0.015;
+}
+
+/* ─── Glass panel base class ─── */
+
+.glass-panel {
+  background: var(--color-glass);
+  border: 1px solid var(--color-glass-edge);
+  backdrop-filter: blur(24px) saturate(1.3);
+  -webkit-backdrop-filter: blur(24px) saturate(1.3);
+}
+
+.glass-panel-subtle {
+  background: oklch(0.2 0.02 270 / 0.25);
+  border: 1px solid oklch(0.35 0.03 270 / 0.1);
+  backdrop-filter: blur(16px) saturate(1.2);
+  -webkit-backdrop-filter: blur(16px) saturate(1.2);
+}
+
+/* ─── Scrollbar ─── */
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: oklch(0.4 0.03 270 / 0.3);
+  border-radius: 100px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: oklch(0.5 0.04 270 / 0.4);
+}
+
+/* ─── Selection ─── */
+
+::selection {
+  background: oklch(0.55 0.15 290 / 0.35);
+  color: #fff;
+}
+
+[data-theme="light"] ::selection {
+  background: oklch(0.6 0.15 290 / 0.25);
+  color: #1a1b26;
+}
+
+[data-theme="light"] ::-webkit-scrollbar-thumb {
+  background: oklch(0.6 0.02 270 / 0.25);
+}
+
+[data-theme="light"] ::-webkit-scrollbar-thumb:hover {
+  background: oklch(0.5 0.03 270 / 0.35);
+}
+
+[data-theme="light"] .cm-editor .cm-activeLine {
+  background: oklch(0.8 0.01 270 / 0.25);
+}
+
+/* ─── Animations ─── */
+
+@keyframes pulse-amber {
+  0%, 100% {
+    box-shadow: 0 0 0 0 oklch(0.72 0.12 70 / 0);
+  }
+  50% {
+    box-shadow: 0 0 12px 4px oklch(0.72 0.12 70 / 0.15);
+  }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-in-left {
+  from { opacity: 0; transform: translateX(-8px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slide-in-right {
+  from { opacity: 0; transform: translateX(8px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes glow-breathe {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.8; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Focus ring with violet glow */
+.focus-ring:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 1px var(--color-violet),
+    0 0 0 3px oklch(0.62 0.18 290 / 0.2);
+}
+
+/* ─── Utility: Latent link glow strip ─── */
+
+.latent-glow {
+  position: relative;
+}
+
+.latent-glow::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  border-radius: 1px;
+  background: linear-gradient(180deg, var(--color-amber) 0%, oklch(0.65 0.15 40) 100%);
+  animation: glow-breathe 2.5s ease-in-out infinite;
+}
+
+/* ─── CodeMirror theme overrides ─── */
+
+.cm-editor {
+  height: 100%;
+  font-family: var(--font-mono) !important;
+  font-size: 13.5px;
+  line-height: 1.7;
+}
+
+.cm-editor .cm-scroller {
+  font-family: inherit;
+  padding: 2rem 0;
+}
+
+.cm-editor .cm-content {
+  padding: 0 3rem;
+  max-width: 72ch;
+}
+
+.cm-editor .cm-gutters {
+  background: transparent;
+  border: none;
+  color: var(--color-ink-ghost);
+}
+
+.cm-editor .cm-activeLineGutter {
+  color: var(--color-ink-tertiary);
+  background: transparent;
+}
+
+.cm-editor .cm-activeLine {
+  background: oklch(0.2 0.02 270 / 0.2);
+}
+
+.cm-editor .cm-cursor {
+  border-left-color: var(--color-amber);
+  border-left-width: 1.5px;
+}
+
+.cm-editor .cm-selectionBackground {
+  background: oklch(0.55 0.15 290 / 0.2) !important;
+}
+
+.cm-editor.cm-focused .cm-selectionBackground {
+  background: oklch(0.55 0.15 290 / 0.25) !important;
+}
+
+.cm-editor .cm-line {
+  padding: 0;
+}

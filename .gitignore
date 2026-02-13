@@ -1,0 +1,37 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+src-tauri/target/
+
+# Environment
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Playwright
+.playwright-mcp/
+
+# ONNX model files (download separately, ~23MB)
+src-tauri/resources/model_quantized.onnx
+src-tauri/resources/tokenizer.json
+
+# Tauri generated
+src-tauri/gen/
+
+# Build info
+tsconfig.tsbuildinfo
+
+# Temp
+/tmp/

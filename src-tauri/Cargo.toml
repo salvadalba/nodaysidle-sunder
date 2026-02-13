@@ -1,0 +1,40 @@
+[package]
+name = "sunder"
+version = "0.1.0"
+description = "Local-first semantic research hub"
+authors = ["archuser"]
+edition = "2021"
+
+[lib]
+name = "sunder_lib"
+crate-type = ["lib", "cdylib", "staticlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+tauri-plugin-dialog = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+uuid = { version = "1", features = ["v7"] }
+rusqlite = { version = "0.32", features = ["bundled", "vtab"] }
+r2d2 = "0.8"
+r2d2_sqlite = "0.25"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+tracing-appender = "0.2"
+tokio = { version = "1", features = ["full"] }
+chrono = { version = "0.4", features = ["serde"] }
+thiserror = "2"
+ort = { version = "2.0.0-rc.11", features = ["ndarray"] }
+ndarray = "0.16"
+tokenizers = "0.22"
+sqlite-vec = "0.1.6"
+zerocopy = { version = "0.7", features = ["derive"] }
+notify = "8"
+lru = "0.12"
+serde_yaml = "0.9"
+sha2 = "0.10"
+hex = "0.4"
+dirs = "5"
