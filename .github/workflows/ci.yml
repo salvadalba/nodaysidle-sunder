@@ -20,7 +20,7 @@ jobs:
             target: aarch64-apple-darwin
           - platform: macos-latest
             target: x86_64-apple-darwin
-          - platform: ubuntu-22.04
+          - platform: ubuntu-24.04
             target: x86_64-unknown-linux-gnu
           - platform: windows-latest
             target: x86_64-pc-windows-msvc
@@ -46,7 +46,7 @@ jobs:
           cache: npm
 
       - name: Install Linux dependencies
-        if: matrix.platform == 'ubuntu-22.04'
+        if: matrix.platform == 'ubuntu-24.04'
         run: |
           sudo apt-get update
           sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf libssl-dev
@@ -54,13 +54,22 @@ jobs:
       - name: Install npm dependencies
         run: npm ci
 
-      - name: Download ONNX model
+      - name: Download ONNX model (Unix)
+        if: runner.os != 'Windows'
         run: |
           mkdir -p src-tauri/resources
           curl -L -o src-tauri/resources/model_quantized.onnx \
             "https://huggingface.co/Xenova/all-MiniLM-L6-v2/resolve/main/onnx/model_quantized.onnx"
           curl -L -o src-tauri/resources/tokenizer.json \
             "https://huggingface.co/Xenova/all-MiniLM-L6-v2/resolve/main/tokenizer.json"
+
+      - name: Download ONNX model (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path src-tauri/resources
+          Invoke-WebRequest -Uri "https://huggingface.co/Xenova/all-MiniLM-L6-v2/resolve/main/onnx/model_quantized.onnx" -OutFile "src-tauri/resources/model_quantized.onnx"
+          Invoke-WebRequest -Uri "https://huggingface.co/Xenova/all-MiniLM-L6-v2/resolve/main/tokenizer.json" -OutFile "src-tauri/resources/tokenizer.json"
 
       - name: TypeScript type check
         run: npx tsc --noEmit
@@ -84,7 +93,7 @@ jobs:
             target: aarch64-apple-darwin
           - platform: macos-latest
             target: x86_64-apple-darwin
-          - platform: ubuntu-22.04
+          - platform: ubuntu-24.04
             target: x86_64-unknown-linux-gnu
           - platform: windows-latest
             target: x86_64-pc-windows-msvc
@@ -110,7 +119,7 @@ jobs:
           cache: npm
 
       - name: Install Linux dependencies
-        if: matrix.platform == 'ubuntu-22.04'
+        if: matrix.platform == 'ubuntu-24.04'
         run: |
           sudo apt-get update
           sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf libssl-dev
@@ -118,13 +127,22 @@ jobs:
       - name: Install npm dependencies
         run: npm ci
 
-      - name: Download ONNX model
+      - name: Download ONNX model (Unix)
+        if: runner.os != 'Windows'
         run: |
           mkdir -p src-tauri/resources
           curl -L -o src-tauri/resources/model_quantized.onnx \
             "https://huggingface.co/Xenova/all-MiniLM-L6-v2/resolve/main/onnx/model_quantized.onnx"
           curl -L -o src-tauri/resources/tokenizer.json \
             "https://huggingface.co/Xenova/all-MiniLM-L6-v2/resolve/main/tokenizer.json"
+
+      - name: Download ONNX model (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path src-tauri/resources
+          Invoke-WebRequest -Uri "https://huggingface.co/Xenova/all-MiniLM-L6-v2/resolve/main/onnx/model_quantized.onnx" -OutFile "src-tauri/resources/model_quantized.onnx"
+          Invoke-WebRequest -Uri "https://huggingface.co/Xenova/all-MiniLM-L6-v2/resolve/main/tokenizer.json" -OutFile "src-tauri/resources/tokenizer.json"
 
       - name: Build Tauri app
         uses: tauri-apps/tauri-action@v0
@@ -134,7 +152,7 @@ jobs:
           args: --target ${{ matrix.target }}
 
       - name: Upload Linux AppImage
-        if: matrix.platform == 'ubuntu-22.04'
+        if: matrix.platform == 'ubuntu-24.04'
         uses: actions/upload-artifact@v4
         with:
           name: sunder-linux-appimage
